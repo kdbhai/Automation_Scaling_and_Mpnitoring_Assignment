@@ -1,0 +1,14 @@
+import boto3
+
+elb = boto3.client('elbv2')
+instance_id = 'i-12345678'  # Replace with your instance ID
+alb_arn = 'arn:aws:elasticloadbalancing:region:account-id:loadbalancer/app/my-web-app-alb/12345678'
+
+try:
+    elb.register_targets(
+        TargetGroupArn=alb_arn,
+        Targets=[{'Id': instance_id, 'Port': 80}]
+    )
+    print(f"Instance '{instance_id}' registered with ALB successfully.")
+except Exception as e:
+    print(f"Error registering instance: {e}")
