@@ -1,0 +1,17 @@
+import boto3
+
+ec2 = boto3.client('ec2')
+instance_type = 't2.micro'
+ami_id = 'ami-0c94855ba95c71c99'  # Replace with your desired AMI
+
+try:
+    response = ec2.run_instances(
+        ImageId=ami_id,
+        InstanceType=instance_type,
+        MinCount=1,
+        MaxCount=1
+    )
+    instance_id = response['Instances'][0]['InstanceId']
+    print(f"Instance '{instance_id}' launched successfully.")
+except Exception as e:
+    print(f"Error launching instance: {e}")
