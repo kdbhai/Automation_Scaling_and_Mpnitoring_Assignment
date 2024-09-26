@@ -1,0 +1,15 @@
+import boto3
+
+elb = boto3.client('elbv2')
+alb_name = 'my-web-app-alb'
+
+try:
+    response = elb.create_load_balancer(
+        Name=alb_name,
+        Type='application',
+        Subnets=['subnet-12345678', 'subnet-23456789']  # Replace with your subnets
+    )
+    alb_arn = response['LoadBalancers'][0]['LoadBalancerArn']
+    print(f"ALB '{alb_name}' created successfully.")
+except Exception as e:
+    print(f"Error creating ALB: {e}")
