@@ -1,0 +1,17 @@
+import boto3
+
+asg = boto3.client('autoscaling')
+asg_name = 'my-web-app-asg'
+
+try:
+    response = asg.create_auto_scaling_group(
+        AutoScalingGroupName=asg_name,
+        LaunchConfigurationName='my-web-app-launch-config',  # Replace with your launch config
+        MinSize=1,
+        MaxSize=5,
+        DesiredCapacity=1,
+        VPCZoneIdentifier='subnet-12345678,subnet-23456789'  # Replace with your subnets
+    )
+    print(f"ASG '{asg_name}' created successfully.")
+except Exception as e:
+    print(f"Error creating ASG: {e}")
