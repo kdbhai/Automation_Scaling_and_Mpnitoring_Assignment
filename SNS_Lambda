@@ -1,0 +1,10 @@
+import boto3
+
+sns = boto3.client('sns')
+lambda_client = boto3.client('lambda')
+
+topic_name = 'my-web-app-alerts'
+lambda_function_name = 'my-web-app-lambda'
+
+try:
+    response =
