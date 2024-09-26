@@ -1,0 +1,17 @@
+import boto3
+
+asg = boto3.client('autoscaling')
+asg_name = 'my-web-app-asg'
+
+try:
+    asg.put_scaling_policy(
+        AutoScalingGroupName=asg_name,
+        PolicyName='ScaleOutPolicy',
+        PolicyType='SimpleScaling',
+        AdjustmentType='ChangeInCapacity',
+        ScalingAdjustment=1,
+        Cooldown=300
+    )
+    print(f"Scaling policy 'ScaleOutPolicy' created successfully.")
+except Exception as e:
+    print(f"Error creating scaling policy: {e}")
